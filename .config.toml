@@ -1,0 +1,26 @@
+# Chainlit Authentication Configuration
+
+[auth]
+# Enable authentication
+enable_auth = true
+
+# Secret key for JWT tokens (from .env)
+# This should match CHAINLIT_AUTH_SECRET in your .env file
+secret = "${CHAINLIT_AUTH_SECRET}"
+
+# Session timeout in seconds (1 hour)
+session_timeout = 3600
+
+# OAuth providers
+[auth.oauth.google]
+# Google OAuth credentials (from .env)
+client_id = "${OAUTH_GOOGLE_CLIENT_ID}"
+client_secret = "${OAUTH_GOOGLE_CLIENT_SECRET}"
+
+# Authorized domains (optional - leave empty to allow all)
+# authorized_domains = ["yourdomain.com"]
+
+# Callback URL - this is automatically handled by Chainlit
+# Make sure this matches your Google OAuth console settings
+# For local: http://localhost:8000/auth/oauth/google/callback
+# For production: https://yourdomain.com/auth/oauth/google/callback

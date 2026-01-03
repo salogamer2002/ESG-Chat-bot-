@@ -1,0 +1,44 @@
+# Core framework
+fastapi>=0.95.0
+uvicorn[standard]>=0.21.0
+
+# Chat UI / orchestration
+chainlit>=0.6.0
+
+# Environment / config
+python-dotenv>=1.0.0
+
+# Remote upload utility
+paramiko>=3.0.0
+scp>=0.14.0
+
+# Auth / tokens
+PyJWT>=2.7.0
+
+# LangChain and community extensions
+langchain>=0.0.300
+langchain-community>=0.0.6
+
+# OpenAI and model clients
+openai>=0.27.0
+
+# Embeddings & vector stores
+faiss-cpu>=1.7.4
+sentence-transformers>=2.2.2
+transformers>=4.30.0
+huggingface-hub>=0.16.0
+
+# LangModel helpers used in code
+tiktoken>=0.4.0
+
+# PDF / docx handling
+PyMuPDF>=1.22.0
+python-docx>=0.8.11
+
+# Utilities
+tqdm>=4.65.0
+
+# Optional but commonly required runtime dependencies
+torch>=2.0.0
+
+# Pinning note: adjust versions for your environment, GPU support, or local constraints.

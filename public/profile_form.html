@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Complete Your Profile | Mizan AI</title>
+  <link rel="icon" href="/public/favicon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: hsl(0, 0%, 98%);
+      color: hsl(220, 13%, 15%);
+    }
+    input, select, label, button {
+      color: black;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen px-4 py-8">
+  <div class="bg-white rounded-2xl shadow-md w-full max-w-xl p-8 border border-gray-200">
+    <div class="flex flex-col items-center mb-6">
+      <img src="/public/favicon.png" alt="Mizan AI Logo" class="w-12 h-12 mb-2 shadow-sm" />
+      <h2 class="text-2xl font-semibold text-center text-gray-800">Welcome to Mizan AI</h2>
+      <p class="text-sm text-gray-600 text-center">Before continuing, please complete your profile.</p>
+    </div>
+
+    <form id="profileForm" action="/submit_profile" method="POST" class="space-y-4">
+      <!-- Hidden inputs for OAuth data -->
+      <input type="hidden" name="oauth_name" id="oauth_name" />
+      <input type="hidden" name="oauth_organization" id="oauth_organization" />
+      <input type="hidden" name="oauth_country" id="oauth_country" />
+      <!-- This hidden field is CRITICAL - passes the email from URL -->
+      <input type="hidden" name="email" id="email_param" />
+
+      <!-- Field 1: Name -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+        <input type="text" name="name" id="name" required
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" />
+      </div>
+
+      <!-- Field 6: Contact Email -->
+      <div>
+        <label for="contact_email" class="block text-sm font-medium text-gray-700">Contact Email</label>
+        <input type="email"
+               name="contact_email"
+               id="contact_email"
+               readonly
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+               required />
+      </div>
+
+      <!-- Field 2: Use Case -->
+      <div>
+        <label for="use_case" class="block text-sm font-medium text-gray-700">Use Case</label>
+        <select name="use_case" id="use_case" required
+                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500">
+          <option value="">Select</option>
+          <option value="Official">Official</option>
+          <option value="Academic">Academic</option>
+          <option value="Research">Research</option>
+          <option value="General Curiosity">General Curiosity</option>
+        </select>
+      </div>
+
+      <!-- Field 3: Organization -->
+      <div>
+        <label for="organization" class="block text-sm font-medium text-gray-700">Organization / Institution</label>
+        <input type="text" name="organization" id="organization" required
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" />
+      </div>
+
+      <!-- Field 4: Industry Type -->
+      <div>
+        <label for="industry" class="block text-sm font-medium text-gray-700">Industry Type</label>
+        <select name="industry" id="industry" required
+                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500">
+            <option value="">Select Industry</option>
+            <option value="Education">Education</option>
+            <option value="Energy">Energy</option>
+            <option value="Finance">Finance</option>
+            <option value="Government">Government</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Legal">Legal</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Non-profit">Non-profit</option>
+            <option value="Other">Other</option>
+            <option value="Retail">Retail</option>
+            <option value="Technology">Technology</option>
+            <option value="Transportation">Transportation</option>                
+        </select>
+      </div>
+
+      <!-- Field 5: Sector -->
+      <div>
+        <label for="sector" class="block text-sm font-medium text-gray-700">Sector</label>
+        <input type="text" name="sector" id="sector" required
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" />
+      </div>
+
+      <!-- Field 7: Country -->
+      <div>
+        <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+        <select name="country" id="country" required
+                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500">
+          <option value="">Select Country</option>
+          <option value="Afghanistan">Afghanistan</option>
+          <option value="Albania">Albania</option>
+          <!-- ... other countries ... -->
+          <option value="Zimbabwe">Zimbabwe</option>
+        </select>
+      </div>
+        
+      <!-- Consent -->
+      <div class="flex items-start">
+        <input type="checkbox" name="consent" id="consent" class="mt-1 mr-2" required />
+        <label for="consent" class="text-sm text-gray-700">I consent to storing this information.</label>
+      </div>
+
+      <button type="submit"
+              class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg shadow-md transition-colors">
+        Submit & Start Chatting
+      </button>
+    </form>
+    
+    <div class="mt-6 pt-6 border-t border-gray-200">
+      <p class="text-sm text-gray-500 text-center">
+        After submitting, return to the chat window and type <span class="font-mono bg-gray-100 px-2 py-1 rounded">done</span>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    
+    // Required params
+    const requiredParams = ["email", "name"];
+
+    const missing = requiredParams.some(p => !params.get(p));
+
+    if (missing) {
+        alert("⚠️ Access to this page is restricted. Please log in first.");
+        window.location.href = "/";
+    }
+    
+    const getParam = (key) => params.get(key) || "";
+
+    // Autofill fields
+    const oauthName = getParam("name");
+    const oauthEmail = getParam("email");
+    const oauthOrg = getParam("organization") || "";
+    const oauthCountry = getParam("country") || "";
+
+    // Set hidden email parameter
+    document.getElementById("email_param").value = oauthEmail;
+    
+    // Fill visible fields
+    document.getElementById("name").value = oauthName;
+    document.getElementById("contact_email").value = oauthEmail;
+    document.getElementById("organization").value = oauthOrg;
+    
+    // Only set country if it exists in the dropdown
+    if (oauthCountry) {
+      const countrySelect = document.getElementById("country");
+      const optionExists = Array.from(countrySelect.options).some(opt => opt.value === oauthCountry);
+      if (optionExists) {
+        countrySelect.value = oauthCountry;
+      }
+    }
+
+    // Fill hidden OAuth fields
+    document.getElementById("oauth_name").value = oauthName;
+    document.getElementById("oauth_organization").value = oauthOrg;
+    document.getElementById("oauth_country").value = oauthCountry;
+
+    // Form validation before submit
+    document.getElementById("profileForm").addEventListener("submit", function (e) {
+      const requiredFields = ["name", "use_case", "organization", "industry", "sector", "contact_email", "country"];
+      let missing = false;
+
+      for (let id of requiredFields) {
+        const field = document.getElementById(id);
+        if (!field.value.trim()) {
+          field.classList.add("border-red-500");
+          missing = true;
+        } else {
+          field.classList.remove("border-red-500");
+        }
+      }
+
+      const consentChecked = document.getElementById("consent").checked;
+      if (!consentChecked || missing) {
+        alert("Please fill all fields and agree to consent before continuing.");
+        e.preventDefault();
+      } else {
+        // Show loading state
+        const submitBtn = document.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = 'Submitting...';
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        
+        // Notify parent window if opened from popup
+        if (window.opener) {
+          try {
+            window.opener.postMessage({ 
+              type: 'profile_submitting', 
+              status: 'processing' 
+            }, '*');
+          } catch (err) {
+            console.log('Could not notify parent window');
+          }
+        }
+      }
+    });
+
+    // Notify parent window when page loads
+    window.onload = function() {
+      if (window.opener) {
+        try {
+          window.opener.postMessage({ 
+            type: 'profile_window_loaded', 
+            status: 'success' 
+          }, '*');
+        } catch (e) {
+          console.log('Could not notify parent window');
+        }
+      }
+    };
+  </script>
+</body>
+</html>

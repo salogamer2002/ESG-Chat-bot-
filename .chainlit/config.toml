@@ -1,0 +1,15 @@
+[project]
+name = "ESG Compliance Chatbot"
+description = "AI assistant for ESG compliance and regulations"
+default_expand_messages = false
+
+[UI]
+name = "Mizan AI"
+show_share_button = false
+show_readme_in_drawer = true
+
+[meta]
+generated_by = "Chainlit 1.0.0"
+
+[features]
+multi_modal = true

@@ -1,0 +1,19 @@
+a[href*='https://chainlit.io'] {
+    visibility: hidden;
+}
+
+.watermark {
+    display: none !important;
+}
+
+a img[alt="watermark"] {
+    display: none;
+}
+
+.ai-message > span > .rounded-full {
+    border-radius: 0px !important;
+}
+
+.object-cover {
+    object-fit: scale-down !important;
+}
